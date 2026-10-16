@@ -1,0 +1,5 @@
+import {Chess} from './vendor/chess.js';
+const values={p:100,n:320,b:335,r:500,q:900,k:0};
+function evaluate(g){if(g.isCheckmate())return -100000;if(g.isDraw())return 0;let s=0;for(const row of g.board())for(const p of row)if(p){const f=p.square.charCodeAt(0)-97,r=+p.square[1]-1,center=3.5-(Math.abs(3.5-f)+Math.abs(3.5-r))/2;const bonus=p.type==='p'?(p.color==='w'?r:7-r)*6:center*(p.type==='n'?15:5);s+=(p.color===g.turn()?1:-1)*(values[p.type]+bonus)}return s}
+function search(g,depth,alpha,beta){if(depth===0||g.isGameOver())return evaluate(g);let best=-Infinity;const moves=g.moves({verbose:true}).sort((a,b)=>(values[b.captured]||0)-(values[a.captured]||0));for(const m of moves){g.move(m);const v=-search(g,depth-1,-beta,-alpha);g.undo();best=Math.max(best,v);alpha=Math.max(alpha,v);if(alpha>=beta)break}return best}
+export function bestMove(fen,level=2){const g=new Chess(fen);let best=-Infinity,choice=null;const moves=g.moves({verbose:true});for(const m of moves){g.move(m);const value=-search(g,level===1?0:1,-Infinity,Infinity);g.undo();if(value>best){best=value;choice={from:m.from,to:m.to,promotion:m.promotion}}}return choice}
