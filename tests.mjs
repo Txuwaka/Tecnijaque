@@ -14,3 +14,8 @@ g.load('7k/8/8/8/8/8/8/7K w - - 0 1');assert(g.isInsufficientMaterial());
 g.reset();for(let i=0;i<20&&!g.isGameOver();i++){const fen=g.fen(),m=bestMove(fen,2);assert(m);g.move(m)}const pgn=g.pgn();const copy=new Chess();copy.loadPgn(pgn);assert.equal(copy.fen(),g.fen());
 g.reset();for(const m of ['f3','e5','g4'])g.move(m);g.move(bestMove(g.fen(),2));assert(g.isCheckmate(),'AI takes mate in one');
 console.log('OK: perft 8902, mate, castling, en passant, 4 promotions, stalemate, repetition, material, AI 20 plies, PGN persistence, AI mate.');
+// Alpha 02: each difficulty must return a legal move; novice covers different legal options.
+g.reset();for(const level of [0,1,2,3]){const choice=bestMove(g.fen(),level,()=>.25);const trial=new Chess(g.fen());assert(trial.move(choice));assert.equal(g.history().length,0)}
+assert.notDeepEqual(bestMove(g.fen(),0,()=>0),bestMove(g.fen(),0,()=>.99));
+const danger=new Chess('4k3/8/8/3p4/8/2N5/8/4K3 w - - 0 1');danger.move({from:'c3',to:'e4'});assert(danger.isAttacked('e4','b'),'Coach detects attacked destination');
+console.log('OK: 4 difficulties, varied novice moves, coach danger detection.');

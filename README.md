@@ -1,4 +1,4 @@
-# Chess Master — Alpha 01
+# Chess Master — Alpha 02
 
 Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidiana. Tablero y piezas geométricas en 3D real (WebGL / Three.js), con movimientos animados. Sin instalación, cuentas ni servidor de partidas.
 
@@ -28,16 +28,21 @@ Abre http://localhost:8000. No abras `index.html` con doble clic: los módulos y
 ## Qué incluye
 
 - Tablero 3D y piezas modeladas mediante geometría, iluminación azul/violeta y sombras.
-- Desplazamiento animado, vista cenital, giro de orientación y tablero 2D alternativo.
+- Desplazamiento animado, saltos del caballo, balanceo de selección, retirada teatral de piezas capturadas y comentarios simpáticos. Vista cenital, giro y tablero 2D con ocho filas iguales y animación de movimiento.
 - Juego contra IA con blancas, o dos personas en el mismo dispositivo.
-- Dos niveles sencillos: Aprendiz (evalúa una jugada) y Escudero (considera también la respuesta rival). No es Stockfish ni una IA experta.
-- Movimientos legales iluminados, explicaciones por pieza y sugerencia de jugada.
+- Cuatro niveles: Primeros pasos (aleatorio), Aprendiz (evaluación con despistes), Escudero (hasta dos medias jugadas) y Guardián (hasta tres, con presupuesto de tiempo y nodos). No es Stockfish ni una IA experta. La fuerza no está calibrada en Elo.
+- Movimientos legales iluminados, explicaciones por pieza, sugerencia de jugada y maestro protector opcional: avisa antes de mover a una casilla atacada; permite reconsiderar o seguir. No detecta todos los errores tácticos ni sustituye una evaluación completa.
 - Jaque, mate, ahogado, enroque, captura al paso y promoción a dama, torre, alfil o caballo.
 - Tablas automáticas por repetición triple, 50 jugadas y material insuficiente. Esta automatización simplifica el procedimiento de reclamación de un torneo.
 - Historial en notación algebraica internacional, capturas y deshacer (turno completo contra IA).
-- Sonidos opcionales generados en el navegador, apagados inicialmente.
+- Sonidos opcionales de movimiento y captura, apagados inicialmente. Fuente relajante sintetizada con ruido filtrado estéreo y gotas irregulares, con interruptor y volumen independientes. No es una grabación real ni una canción. Se activa mediante clic y se pausa al ocultar la pestaña.
+- Fuente gótica Grenze Gotisch incluida localmente, con licencia OFL; textos de ayuda en tipografía sencilla para facilitar la lectura.
 - Guardado automático local de la partida y modalidad; se recupera al volver a la misma URL con el mismo navegador. No sincroniza dispositivos y se pierde al borrar los datos del sitio.
 - Compatibilidad con la preferencia de reducir movimiento.
+
+## Cambios de Alpha 02
+
+Sustituye todos los archivos del repositorio por los de este ZIP, incluyendo la carpeta `vendor`. Si ves la versión anterior, recarga con Ctrl+Shift+R. La partida anterior se conserva en el mismo navegador y URL. La primera vez que actualizas se selecciona Primeros pasos.
 
 ## Primer test sugerido
 
@@ -47,6 +52,9 @@ Abre http://localhost:8000. No abras `index.html` con doble clic: los módulos y
 4. Cambia entre 3D y 2D, gira el tablero y prueba la vista cenital.
 5. Recarga la página: la partida debe continuar donde la dejaste.
 6. Prueba el modo de dos jugadores y el sonido.
+7. Activa el agua, ajusta el volumen y vuelve a silenciarla.
+8. Comprueba que las ocho filas del tablero 2D conservan su tamaño cuando salen las piezas.
+9. Cambia de dificultad. El maestro protector es opcional y puede desactivarse.
 
 Si algo falla, comparte captura, dispositivo/navegador y qué movimiento o botón usaste. En equipos con pocos recursos, usa el tablero 2D.
 
@@ -57,13 +65,14 @@ Si algo falla, comparte captura, dispositivo/navegador y qué movimiento o botó
 - `app.js`: turnos, interfaz, promoción y persistencia.
 - `scene.js`: modelos 3D, cámara, selección y animación.
 - `ai.js` / `worker.js`: búsqueda de jugadas en un hilo separado.
+- `ambience.js`: ambiente de fuente sintetizado, sin descargas ni archivos sonoros externos.
 - `vendor/chess.js`: reglas del ajedrez (chess.js 1.0.0, BSD-2-Clause).
 - `vendor/three.module.js`: motor gráfico (Three.js 0.160.1, MIT).
 - `tests.mjs`: comprobaciones automatizadas; ejecutar `node tests.mjs` o `npm test`.
 
 ## Verificación de esta entrega
 
-Han pasado: árbol de 8.902 posiciones legales a profundidad 3, jaque mate, ambos enroques, captura al paso, cuatro promociones, ahogado, repetición, material insuficiente, 20 medias jugadas de IA, recuperación PGN y elección de mate en una jugada por la IA. Sintaxis JavaScript comprobada.
+Han pasado: árbol de 8.902 posiciones legales a profundidad 3, jaque mate, ambos enroques, captura al paso, cuatro promociones, ahogado, repetición, material insuficiente, 20 medias jugadas de IA, recuperación PGN y elección de mate en una jugada por la IA. Sintaxis JavaScript comprobada. Pruebas adicionales de las cuatro dificultades, diversidad del nivel inicial y detección de una casilla atacada para el maestro protector.
 
 Pendiente: prueba visual y de interacción en navegador y en tu dispositivo. Esta entrega no se ha publicado automáticamente.
 
