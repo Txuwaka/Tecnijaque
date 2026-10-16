@@ -1,4 +1,4 @@
-# Chess Master — Alpha 02
+# Chess Master — Alpha 03
 
 Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidiana. Tablero y piezas geométricas en 3D real (WebGL / Three.js), con movimientos animados. Sin instalación, cuentas ni servidor de partidas.
 
@@ -40,9 +40,18 @@ Abre http://localhost:8000. No abras `index.html` con doble clic: los módulos y
 - Guardado automático local de la partida y modalidad; se recupera al volver a la misma URL con el mismo navegador. No sincroniza dispositivos y se pierde al borrar los datos del sitio.
 - Compatibilidad con la preferencia de reducir movimiento.
 
-## Cambios de Alpha 02
+## Correcciones de Alpha 03
 
-Sustituye todos los archivos del repositorio por los de este ZIP, incluyendo la carpeta `vendor`. Si ves la versión anterior, recarga con Ctrl+Shift+R. La partida anterior se conserva en el mismo navegador y URL. La primera vez que actualizas se selecciona Primeros pasos.
+- Corregida una referencia a `sq` fuera de su ámbito en los botones de promoción: detenía la inicialización de la interfaz.
+- El juego arranca en 2D. Three.js y la escena solo se descargan al pulsar **Tablero 3D**.
+- Sombras desactivadas y resolución de render limitada para reducir carga gráfica.
+- Límite de espera para animaciones y recuperación de IA con jugada legal básica si el worker falla o no responde.
+- Archivos de entrada versionados para evitar mezclar la interfaz anterior con la nueva en caché.
+- Prueba de integración de arranque, movimiento humano y respuesta IA, deshacer, pista, persistencia y recuperación ante worker bloqueado. Se ejecuta con `node interface-tests.mjs`; usa un DOM simulado, no comprueba renderizado ni audio real.
+
+## Actualizar
+
+Sustituye todos los archivos del repositorio por los de este ZIP, incluyendo la carpeta `vendor`. Si ves la versión anterior, recarga con Ctrl+Shift+R. La partida anterior se conserva en el mismo navegador y URL. Se conservan la dificultad y las ayudas de Alpha 02; si vienes de Alpha 01 se selecciona Primeros pasos.
 
 ## Primer test sugerido
 
