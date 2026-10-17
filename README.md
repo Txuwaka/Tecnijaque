@@ -1,6 +1,17 @@
-# Chess Master — Alpha 03
+# Chess Master — Alpha 04
 
 Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidiana. Tablero y piezas geométricas en 3D real (WebGL / Three.js), con movimientos animados. Sin instalación, cuentas ni servidor de partidas.
+
+## Alpha 04 — Nox y su jardín
+
+- Nox es un cuervo vectorial animado, sin imágenes externas: parpadea, inclina la cabeza y acompaña los comentarios de partida. Tócalo o pulsa «Nox, dame un consejo».
+- Sus consejos usan el estado del tablero: jaque, pieza seleccionada, casillas atacadas o lecciones básicas. No sustituye un motor experto. Se pueden silenciar sus comentarios sin desactivar las ayudas.
+- «El jardín de Nox»: composición instrumental original de 32 compases, tempo 72 BPM, con melodía, arpegios y acordes sintetizados mediante Web Audio. Se repite aproximadamente cada 107 segundos. Son timbres suaves de arpa/campanas y fondo sostenido; no es una grabación orquestal ni incluye voces.
+- Música y fuente se activan por separado, con volúmenes independientes. Ambas empiezan apagadas y se pausan al ocultar la pestaña. El audio se crea al pulsar el botón; no se descarga ninguna pista al arrancar.
+- Sigue el arranque ligero en 2D; el 3D se carga solo al solicitarlo.
+- Sustituye todos los archivos del repositorio, incluyendo `music.js` y `vendor`. Recarga con Ctrl+Shift+R y comprueba que aparece ALPHA 04.
+
+Verificación adicional: prueba de interfaz simulada para arranque, movimiento, respuesta IA y controles de Nox. Prueba del ciclo de audio con un contexto simulado: inicio, volumen, pausa, cambio de pestaña y reanudación. No se ha verificado el aspecto ni escuchado la mezcla en un navegador real.
 
 ## Subir a GitHub Pages
 
@@ -88,3 +99,5 @@ Pendiente: prueba visual y de interacción en navegador y en tu dispositivo. Est
 ## Después
 
 Las peleas entre piezas, personajes, efectos de captura especiales y multijugador online quedan para próximas versiones. La base actual usa piezas geométricas, sin animaciones de combate. El objetivo de esta primera entrega es jugar, aprender y ajustar controles y aspecto juntos.
+
+Nuevos archivos: `music.js` contiene la composición y su reproductor; `music-tests.mjs` comprueba el ciclo de audio. Ejecuta `npm test` para las pruebas de reglas, interfaz y audio.

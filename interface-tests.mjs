@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {bestMove} from './ai.js';
 class Element {
- constructor(tag='div'){this.tagName=tag;this.children=[];this.dataset={};this.value='';this.checked=false;this.hidden=false;this.disabled=false;this.style={setProperty(){}};this.classList={add(){},remove(){}};this.clientWidth=600;this.clientHeight=590;this.options=[{disabled:false},{disabled:false}];this._text='';this.listeners={}}
+ constructor(tag='div'){this.tagName=tag;this.children=[];this.dataset={};this.value='';this.checked=false;this.hidden=false;this.disabled=false;this.style={setProperty(){}};this.classList={add(){},remove(){},toggle(){}};this.parentElement={classList:{toggle(){}}};this.clientWidth=600;this.clientHeight=590;this.options=[{disabled:false},{disabled:false}];this._text='';this.listeners={}}
  set textContent(value){this._text=String(value);this.children=[];this.firstChild={nodeType:3,textContent:this._text}}
  get textContent(){return this._text+this.children.map(c=>c.textContent).join('')}
  append(...children){this.children.push(...children)}
@@ -16,7 +16,7 @@ class Element {
 }
 const html=fs.readFileSync(new URL('./index.html',import.meta.url),'utf8'),elements=new Map([...html.matchAll(/id="([^"]+)"/g)].map(m=>[m[1],new Element()]));
 const el=id=>{assert(elements.has(id),'DOM id exists: '+id);return elements.get(id)};
-el('mode').value='ai';el('level').value='0';el('coach').checked=true;el('guides').checked=true;
+el('raven-chat').checked=true;el('mode').value='ai';el('level').value='0';el('coach').checked=true;el('guides').checked=true;
 globalThis.document={getElementById:el,createElement:tag=>new Element(tag),body:new Element(),addEventListener(){}};
 globalThis.localStorage={data:{},getItem(k){return this.data[k]||null},setItem(k,v){this.data[k]=v}};
 globalThis.ResizeObserver=class{constructor(fn){this.fn=fn}observe(){this.fn()}};
@@ -39,5 +39,6 @@ assert.match(JSON.parse(localStorage.data['chess-master-v1']).pgn,/e4/);
 el('undo').onclick();assert.equal(el('count').textContent,'0 medias jugadas');
 el('hint').onclick();await until(()=>!el('hint').disabled);assert.match(el('advice').textContent,/Prueba/);
 workerBehavior='stalled';await square('d2').onclick();await square('d4').onclick();await until(()=>el('count').textContent==='2 medias jugadas'&&!el('undo').disabled,6500);assert.equal(el('turn').textContent,'Turno de blancas');assert.match(el('advice').textContent,/modo básico/);
+el('raven').onclick();assert.match(el('advice').textContent,/./);assert.match(el('raven-quip').textContent,/Graa/);el('raven-chat').checked=false;el('raven-chat').onchange();assert.match(el('raven-quip').textContent,/Silencio/);assert.equal(typeof el('music').onclick,'function');
 console.log('OK interface: boot, 64 squares, 4 promotion buttons, move + AI reply, persistence, undo, hint, stalled-worker recovery. No browser rendering verified.');
 process.exit(0);

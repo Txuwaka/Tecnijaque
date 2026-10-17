@@ -1,1 +1,1 @@
-{"name":"chess-master","private":true,"type":"module","version":"0.3.0","scripts":{"test":"node tests.mjs && node interface-tests.mjs"}}
+{"name":"chess-master","private":true,"type":"module","version":"0.4.0","scripts":{"test":"node tests.mjs && node interface-tests.mjs && node music-tests.mjs"}}

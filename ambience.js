@@ -5,5 +5,6 @@ export class Fountain {
   drip(){if(!this.enabled)return;const c=this.context,osc=c.createOscillator(),g=c.createGain(),pan=c.createStereoPanner(),now=c.currentTime;osc.type='sine';osc.frequency.setValueAtTime(700+Math.random()*900,now);osc.frequency.exponentialRampToValueAtTime(350+Math.random()*250,now+.1);g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.025,now+.012);g.gain.exponentialRampToValueAtTime(.0001,now+.22);pan.pan.value=(Math.random()-.5)*1.2;osc.connect(g);g.connect(pan);pan.connect(this.master);osc.start();osc.stop(now+.23);osc.onended=()=>{osc.disconnect();g.disconnect();pan.disconnect()};this.timer=setTimeout(()=>{this.timer=null;this.drip()},100+Math.random()*480)}
   applyVolume(){if(this.context){this.master.gain.cancelScheduledValues(this.context.currentTime);this.master.gain.setTargetAtTime(this.enabled?this.volume*.7:0,this.context.currentTime,.25)}}
   stop(){this.enabled=false;clearTimeout(this.timer);this.timer=null;this.applyVolume()}
+  async setHidden(hidden){if(!this.context)return;if(hidden){clearTimeout(this.timer);this.timer=null;await this.context.suspend()}else if(this.enabled){await this.context.resume();if(!this.timer)this.drip()}}
   setVolume(v){this.volume=Math.max(0,Math.min(1,v));this.applyVolume()}
 }
