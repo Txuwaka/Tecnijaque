@@ -1,3 +1,7 @@
+# Tecni Jaque — Alpha 07
+
+Tres accesos junto a Menú: Melodía, Río y Pantalla completa. Los botones de audio se iluminan cuando están activos y se sincronizan con los del menú. Los volúmenes siguen dentro del menú. Pantalla completa incluye toda la interfaz; Esc permite salir. En navegadores sin soporte, se informa de la limitación.
+
 # Tecni Jaque — Alpha 06
 
 Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidiana. Tablero y piezas geométricas en 3D real (WebGL / Three.js), con movimientos animados. Sin instalación, cuentas ni servidor de partidas.

@@ -60,3 +60,45 @@ $('music-volume').oninput=()=>music.setVolume(Number($('music-volume').value)/10
 $('close-menu').onclick=()=>{$('game-menu').open=false;$('game-menu').querySelector('summary').focus()};
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&$('game-menu').open){$('game-menu').open=false;$('game-menu').querySelector('summary').focus()}});
 document.addEventListener('click',event=>{if($('game-menu').open&&!$('game-menu').contains(event.target))$('game-menu').open=false});
+
+// Header shortcuts share the original audio handlers and their busy guards.
+function syncQuickAudio(){
+  for(const [id,on,name] of [['quick-music',music.enabled,'melodía'],['quick-water',fountain.enabled,'río']]){
+    $(id).setAttribute('aria-pressed',String(on));
+    $(id).title=(on?'Desactivar ':'Activar ')+name;
+    $(id).setAttribute('aria-label',$(id).title);
+  }
+}
+for(const [original,shortcut] of [['music','quick-music'],['water','quick-water']]){
+  const toggle=$(original).onclick;
+  $(original).onclick=async()=>{try{await toggle()}finally{syncQuickAudio()}};
+  $(shortcut).onclick=()=>$(original).onclick();
+}
+syncQuickAudio();
+function fullscreenElement(){return document.fullscreenElement||document.webkitFullscreenElement}
+function syncFullscreen(){
+  const active=!!fullscreenElement();
+  $('fullscreen').setAttribute('aria-pressed',String(active));
+  $('fullscreen').title=active?'Salir de pantalla completa (Esc)':'Pantalla completa';
+  $('fullscreen').setAttribute('aria-label',$('fullscreen').title);
+  $('fullscreen').querySelector('span').textContent=active?'Salir de pantalla completa':'Pantalla completa';
+}
+$('fullscreen').onclick=async()=>{
+  try{
+    if(fullscreenElement()){
+      const exit=document.exitFullscreen||document.webkitExitFullscreen;
+      if(exit)await exit.call(document);
+    }else{
+      const root=document.documentElement;
+      const enter=root.requestFullscreen||root.webkitRequestFullscreen;
+      if(!enter)throw new Error('unsupported');
+      await enter.call(root);
+    }
+    $('screen-status').textContent='';
+  }catch{
+    $('screen-status').textContent='Este navegador no permite activar la pantalla completa. En PC puedes usar F11.';
+    $('advice').textContent=$('screen-status').textContent;
+  }
+};
+document.addEventListener('fullscreenchange',syncFullscreen);
+document.addEventListener('webkitfullscreenchange',syncFullscreen);
