@@ -1,11 +1,20 @@
-# Tecni Jaque — Alpha 05
+# Tecni Jaque — Alpha 06
 
 Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidiana. Tablero y piezas geométricas en 3D real (WebGL / Three.js), con movimientos animados. Sin instalación, cuentas ni servidor de partidas.
+
+## Alpha 06 — Más tablero en el móvil
+
+- La partida ocupa la altura disponible, sin el hueco vacío sobre el tablero.
+- Cámara 3D ajustada a las dimensiones reales del tablero, incluyendo las piezas altas; se adapta a vertical, horizontal, giro y vista cenital.
+- Girar, Vista cenital y Tablero 2D/3D están visibles debajo del tablero, fuera del menú.
+- Nox conserva su espacio inferior; en móviles horizontales pequeños pasa a la derecha.
+- Sustituye todos los archivos y la carpeta `vendor` en GitHub, incluido el nuevo `camera-fit.js`. `index.html` debe quedar en la raíz. Recarga para cargar la Alpha 06.
+- Verificación: pruebas del motor, interfaz y audio, y proyección matemática del tablero y sus piezas en varios tamaños. Pendiente la comprobación visual en un navegador móvil real.
 
 ## Alpha 05 — Tablero, Nox y tranquilidad
 
 - Pantalla principal adaptada a la altura disponible: tablero, turno y consejos de Nox.
-- Menú desplegable con modalidad, dificultad, ayudas, acciones, audio, vistas e historial. Se cierra con ✕, Escape o al pulsar fuera.
+- Menú desplegable con modalidad, dificultad, ayudas, acciones, audio e historial; en Alpha 06 las vistas pasan al tablero. Se cierra con ✕, Escape o al pulsar fuera.
 - Agua rediseñada como un murmullo grave y suave, sin gotas de grifo; entrada y salida progresivas. Es síntesis, no una grabación de campo.
 - La melodía original no se ha modificado.
 
@@ -16,7 +25,7 @@ Un primer ajedrez de Txuwa: azules nocturnos, morados, piezas de plata y obsidia
 - «El jardín de Nox»: composición instrumental original de 32 compases, tempo 72 BPM, con melodía, arpegios y acordes sintetizados mediante Web Audio. Se repite aproximadamente cada 107 segundos. Son timbres suaves de arpa/campanas y fondo sostenido; no es una grabación orquestal ni incluye voces.
 - Música y río se activan por separado, con volúmenes independientes. Ambas empiezan apagadas y se pausan al ocultar la pestaña. El audio se crea al pulsar el botón; no se descarga ninguna pista al arrancar.
 - Sigue el arranque ligero en 2D; el 3D se carga solo al solicitarlo.
-- Sustituye todos los archivos del repositorio, incluyendo `music.js` y `vendor`. Recarga con Ctrl+Shift+R y comprueba que aparece ALPHA 05.
+- Sustituye todos los archivos del repositorio, incluyendo `music.js` y `vendor`. Recarga con Ctrl+Shift+R y comprueba que aparece ALPHA 06.
 
 Verificación adicional: prueba de interfaz simulada para arranque, movimiento, respuesta IA y controles de Nox. Prueba del ciclo de audio con un contexto simulado: inicio, volumen, pausa, cambio de pestaña y reanudación. No se ha verificado el aspecto ni escuchado la mezcla en un navegador real.
 
@@ -24,7 +33,7 @@ Verificación adicional: prueba de interfaz simulada para arranque, movimiento, 
 
 1. Descomprime el ZIP.
 2. Crea un repositorio, por ejemplo `chess-master`.
-3. Sube **el contenido** de la carpeta `chess-master`: `index.html` debe quedar en la raíz del repositorio, junto a los demás archivos y la carpeta `vendor`. No subas solamente el ZIP ni solamente el HTML.
+3. Sube **el contenido** de la carpeta `tecni-jaque`: `index.html` debe quedar en la raíz del repositorio, junto a los demás archivos y la carpeta `vendor`. No subas solamente el ZIP ni solamente el HTML.
 4. Abre **Settings → Pages**.
 5. En **Source**, selecciona **Deploy from a branch**. Elige **main** y **/(root)** y pulsa **Save**.
 6. Cuando termine la publicación, abre el enlace que muestra GitHub Pages.
